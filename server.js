@@ -18,22 +18,43 @@ server.listen(PORT, () => {
   console.log(`Listening on PORT ${PORT}`);
 })
 
-// server.use('/',(req,res) =>{
-//   res.send('Welcome 301d4');
-// });
 
 server.get('/location',(req,res) =>{
   // res.send('hiiii');
   const geoData = require('./data/geo.json');
   const city = req.query.city;
-  console.log(city);
   const locationData = new Location(city,geoData);
   res.send(locationData);
 });
+
+
+server.get('/weather',(req,res) =>{
+  const weatherData = require('./data/weather.json');
+  const city = req.query.city;
+  let allWeather=[];
+  // console.log(weatherData.data.length);
+  for(let i = 0 ; i<weatherData.data.length;i++){
+    const locationweatherData = new Weather(city,weatherData);
+    allWeather.push(locationweatherData);
+  }
+  res.send(allWeather);
+});
+
+
+server.use('/',(req,res) =>{
+  res.send('Welcome 301d4');
+});
+
 
 function Location(city,geoData) {
   this.search_query = city;
   this.formatted_query = geoData[0].display_name;
   this.latitude = geoData[0].lat;
   this.longitude = geoData[0].lng;
+}
+
+function Weather(city,weatherData) {
+  this.search_query = city;
+  this.description = weatherData.data[0].weather.description;
+  this.time = weatherData.data[0].valid_date;
 }
