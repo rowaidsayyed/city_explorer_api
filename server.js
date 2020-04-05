@@ -42,11 +42,11 @@ server.get('/weather',(req,res) =>{
 
 
 
-function Location(city,geoData,idx) {
+function Location(city,geoData) {
   this.search_query = city;
-  this.formatted_query = geoData[idx].display_name;
-  this.latitude = geoData[idx].lat;
-  this.longitude = geoData[idx].lng;
+  this.formatted_query = geoData[0].display_name;
+  this.latitude = geoData[0].lat;
+  this.longitude = geoData[0].lng;
 }
 
 function Weather(city,weatherData,idx) {
