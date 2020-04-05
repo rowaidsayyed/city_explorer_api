@@ -32,8 +32,9 @@ server.get('/weather',(req,res) =>{
   const weatherData = require('./data/weather.json');
   const city = req.query.city;
   let allWeather=[];
+  // console.log(weatherData.data.length);
   for(let i = 0 ; i<weatherData.data.length;i++){
-    const locationweatherData = new Weather(city,weatherData);
+    const locationweatherData = new Weather(city,weatherData,i);
     allWeather.push(locationweatherData);
   }
   res.send(allWeather);
@@ -41,17 +42,17 @@ server.get('/weather',(req,res) =>{
 
 
 
-function Location(city,geoData) {
+function Location(city,geoData,idx) {
   this.search_query = city;
-  this.formatted_query = geoData[0].display_name;
-  this.latitude = geoData[0].lat;
-  this.longitude = geoData[0].lng;
+  this.formatted_query = geoData[idx].display_name;
+  this.latitude = geoData[idx].lat;
+  this.longitude = geoData[idx].lng;
 }
 
-function Weather(city,weatherData) {
+function Weather(city,weatherData,idx) {
   this.search_query = city;
-  this.description = weatherData.data[0].weather.description;
-  this.time = weatherData.data[0].valid_date;
+  this.description = weatherData.data[idx].weather.description;
+  this.time = weatherData.data[idx].valid_date;
 }
 
 // localhost:3000/
@@ -59,6 +60,9 @@ server.get('/', (request, response) => {
   response.status(200).send('Welcome 301d4,it works');
 });
 
+// server.use('/',(req,res) =>{
+//   res.send('Welcome 301d4');
+// });
 
 // localhost:3000/anything
 server.use('*', (req, res) => {
@@ -66,5 +70,5 @@ server.use('*', (req, res) => {
 });
 
 server.use((error, req, res) => {
-  res.status(500).send({'Status': 500,'responseText' : 'sorry something went wrong'});
-})
+  res.status(500).send({'Status': 500,responseText:'sorry something went wrong'});
+});
