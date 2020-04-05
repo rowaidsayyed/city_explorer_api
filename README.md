@@ -28,12 +28,23 @@ libraries : express,cons,dotenv
 
 /***********************************************************************************************/
 
-Number and name of feature: *Repository Set Up*
+Number and name of feature: *Feature 1:Repository Set Up*
 
 Estimate of time needed to complete: *15 min*
 
 Start time: *1 pm*
 
-Finish time: *17 min*
+Finish time: *1:17 pm*
 
 Actual time needed to complete: *17 min*
+
+
+Number and name of feature: *Feature 2:make location rout*
+
+Estimate of time needed to complete: *30 min*
+
+Start time: *1:20 pm*
+
+Finish time: *1:50 min*
+
+Actual time needed to complete: *30 min*
