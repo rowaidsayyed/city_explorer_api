@@ -32,7 +32,6 @@ server.get('/weather',(req,res) =>{
   const weatherData = require('./data/weather.json');
   const city = req.query.city;
   let allWeather=[];
-  // console.log(weatherData.data.length);
   for(let i = 0 ; i<weatherData.data.length;i++){
     const locationweatherData = new Weather(city,weatherData);
     allWeather.push(locationweatherData);
@@ -40,10 +39,6 @@ server.get('/weather',(req,res) =>{
   res.send(allWeather);
 });
 
-
-server.use('/',(req,res) =>{
-  res.send('Welcome 301d4');
-});
 
 
 function Location(city,geoData) {
@@ -58,3 +53,18 @@ function Weather(city,weatherData) {
   this.description = weatherData.data[0].weather.description;
   this.time = weatherData.data[0].valid_date;
 }
+
+// localhost:3000/
+server.get('/', (request, response) => {
+  response.status(200).send('Welcome 301d4,it works');
+});
+
+
+// localhost:3000/anything
+server.use('*', (req, res) => {
+  res.status(404).send('NOT FOUND');
+});
+
+server.use((error, req, res) => {
+  res.status(500).send({'Status': 500,'responseText' : 'sorry something went wrong'});
+})

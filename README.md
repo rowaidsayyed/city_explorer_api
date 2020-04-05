@@ -61,3 +61,15 @@ Start time: *1:20 pm*
 Finish time: *1:50 min*
 
 Actual time needed to complete: *30 min*
+
+/******************************************************************************/
+
+Number and name of feature: *Feature 4:Error handling*
+
+Estimate of time needed to complete: *10 min*
+
+Start time: *1:50 pm*
+
+Finish time: *2:05 min*
+
+Actual time needed to complete: *15 min*
