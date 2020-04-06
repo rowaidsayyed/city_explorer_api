@@ -44,8 +44,8 @@ server.get('/weather',(req,res) =>{
 
 
 server.get('/trails',(req,res) =>{
-  const lon = req.query.latitude;
-  const lat = req.query.longitude;
+  const lat = req.query.latitude;
+  const lon = req.query.longitude;
   const key = process.env.TRAIL_API_KEY;
 
   getTrails(key,lat,lon)
@@ -79,8 +79,7 @@ function getWeather(key,city){
 
 // return array of trails objects for the city requested
 function getTrails(key,lat,lon){
-  // let url = `https://www.hikingproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=10&key=${key}`;
-  let url = `https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${lon}&maxDistance=10&key=${key}`;
+  let url = `https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${lon}&maxDistance=100&sort=Distance&key=${key}`;
   return superagent.get(url)
     .then(trailData => {
       let allTrails = trailData.body.trails.map(element => {
