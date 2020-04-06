@@ -73,3 +73,15 @@ Start time: *1:50 pm*
 Finish time: *2:05 min*
 
 Actual time needed to complete: *15 min*
+
+/******************************************************************************/
+
+Number and name of feature: *Feature 5:Data formatting*
+
+Estimate of time needed to complete: *30 min*
+
+Start time: *1:10 pm*
+
+Finish time: *1:30 min*
+
+Actual time needed to complete: *20 min*
