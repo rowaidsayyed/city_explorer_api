@@ -1,7 +1,7 @@
 # city_explorer_api
 
 **Author**: ruwaid al sayyed obeid
-**Version**: 1.0.0
+**Version**: 2.1.0
 
 ## Overview
 <!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
@@ -85,3 +85,39 @@ Start time: *1:10 pm*
 Finish time: *1:30 min*
 
 Actual time needed to complete: *20 min*
+
+/******************************************************************************/
+
+Number and name of feature: *Feature 6:Data formatting*
+
+Estimate of time needed to complete: *20 min*
+
+Start time: *1:15 pm*
+
+Finish time: *1:30 min*
+
+Actual time needed to complete: *15 min*
+
+/******************************************************************************/
+
+Number and name of feature: *Feature 7:Weather pattern*
+
+Estimate of time needed to complete: *20 min*
+
+Start time: *1:35 pm*
+
+Finish time: *1:40 min*
+
+Actual time needed to complete: *15 min*
+
+/******************************************************************************/
+
+Number and name of feature: *Feature 8:trails rout*
+
+Estimate of time needed to complete: *20 min*
+
+Start time: *1:35 pm*
+
+Finish time: *1:40 min*
+
+Actual time needed to complete: *15 min*

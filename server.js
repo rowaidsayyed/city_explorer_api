@@ -24,7 +24,7 @@ server.listen(PORT, () => {
 server.get('/location',(req,res) =>{
 
   const city = req.query.city;
-  const key = process.env.LOCATION_API;
+  const key = process.env.LOCATION_API_KEY;
 
   //  Lab 6 (get data from json file)
   // const geoData = require('./data/geo.json');
@@ -62,7 +62,7 @@ function getlocation(city,key){
 server.get('/weather',(req,res) =>{
 
   const city = req.query.city;
-  const key = process.env.WEATHER_API;
+  const key = process.env.WEATHER_API_KEY;
 
   //  Lab 6 (get data from json file)
   // const weatherData = require('./data/weather.json');
@@ -110,11 +110,46 @@ function getWeather(key,city){
 }
 
 
+server.get('/trails',(req,res) =>{
+  const lon = req.query.lon;
+  const lat = req.query.lat;
+  const key = process.env.TRAIL_API_KEY;
+
+  getTrails(key,lat,lon)
+    .then(allTrails => res.status(200).json(allTrails));
+
+
+});
+
+function getTrails(key,lat,lon){
+  // let url = `https://www.hikingproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=10&key=${key}`;
+  let url = `https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${lon}&maxDistance=10&key=${key}`;
+  return superagent.get(url)
+    .then(trailData => {
+      let allTrails = trailData.body.trails.map(element => {
+        return new Trails(element);
+      })
+      return allTrails;
+    });
+}
+
+function Trails(trailData) {
+  this.name = trailData.name;
+  this.location = trailData.location;
+  this.length = trailData.length;
+  this.stars = trailData.stars;
+  this.summary= trailData.summary;
+  this.trail_url= trailData.url;
+  this.conditions= trailData.conditionDetails;
+  this.condition_date= trailData.conditionDate.slice(0,10);
+  this.condition_time=trailData.conditionDate.slice(12,19);
+}
+
 function Location(city,geoData) {
   this.search_query = city;
   this.formatted_query = geoData[0].display_name;
   this.latitude = geoData[0].lat;
-  this.longitude = geoData[0].lng;
+  this.longitude = geoData[0].lon;
 }
 
 // function Weatherlab6(city,weatherData,idx) {
@@ -124,8 +159,8 @@ function Location(city,geoData) {
 // }
 
 function Weather(city,weatherData) {
-  this.search_query = city;
-  this.description = weatherData.weather.description;
+  // this.search_query = city;
+  this.forecast = weatherData.weather.description;
   this.time = weatherData.valid_date;
 }
 
