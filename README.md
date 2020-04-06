@@ -114,10 +114,10 @@ Actual time needed to complete: *15 min*
 
 Number and name of feature: *Feature 8:trails rout*
 
-Estimate of time needed to complete: *20 min*
+Estimate of time needed to complete: *40 min*
 
 Start time: *1:35 pm*
 
-Finish time: *1:40 min*
+Finish time: *2:40 min*
 
-Actual time needed to complete: *15 min*
+Actual time needed to complete: *1 hour and 5 min*
