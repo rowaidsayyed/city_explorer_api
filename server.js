@@ -10,42 +10,49 @@ require('dotenv').config();
 
 const superagent = require('superagent');
 
+// Application Setup
 const PORT = process.env.PORT || 3000;
-
 const server = express();
-
 server.use(cors());
 
 server.listen(PORT, () => {
   console.log(`Listening on PORT ${PORT}`);
 })
 
-
+/************************************************* Rout Definitions ************************************************* */
 server.get('/location',(req,res) =>{
 
   const city = req.query.city;
   const key = process.env.LOCATION_API_KEY;
 
-  //  Lab 6 (get data from json file)
-  // const geoData = require('./data/geo.json');
-  //     const locationData = new Location(city,geoData.body);
-  //     res.send(locationData);
-
-  // Lab 7 (get data from API)
-  // first method
-  // let url = `https://eu1.locationiq.com/v1/search.php?key=${key}&q=${city}&format=json`;
-  // superagent.get(url)
-  //   .then(geoData =>{
-  //     const locationData = new Location(city,geoData.body);
-  //     res.send(locationData);
-  //   });
-
-  // Lab 7 (get data from API)
-  // second method
+  // (get data from API)
   getlocation(city,key)
     .then(locationData => res.status(200).json(locationData))
 
 });
+
+server.get('/weather',(req,res) =>{
+
+  const city = req.query.search_query;
+  const key = process.env.WEATHER_API_KEY;
+
+  // (get data from API)
+  getWeather(key,city)
+    .then(allWeatherArr => res.status(200).json(allWeatherArr));
+
+});
+
+
+server.get('/trails',(req,res) =>{
+  const lon = req.query.latitude;
+  const lat = req.query.longitude;
+  const key = process.env.TRAIL_API_KEY;
+
+  getTrails(key,lat,lon)
+    .then(allTrails => res.status(200).json(allTrails));
+});
+
+/***********************************************get Routs functions**************************************************** */
 
 // return location object for the city requested
 function getlocation(city,key){
@@ -58,50 +65,11 @@ function getlocation(city,key){
 }
 
 
-
-server.get('/weather',(req,res) =>{
-
-  const city = req.query.city;
-  const key = process.env.WEATHER_API_KEY;
-
-  //  Lab 6 (get data from json file)
-  // const weatherData = require('./data/weather.json');
-  // let allWeather=[];
-  // for(let i = 0 ; i<weatherData.data.length;i++){
-  //   const locationweatherData = new Weatherlab6(city,weatherData,i);
-  //   allWeather.push(locationweatherData);
-  // }
-  // res.send(allWeather);
-
-  // Lab 7 (get data from API)
-  // first Method
-  // let url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&key=${key}`;
-  // superagent.get(url)
-  //   .then(weatherData =>{
-  //     let allWeather=[];
-  //     console.log('hhhhhhhhhhhhhh',weatherData.body.data);
-  //     for(let i = 0 ; i<weatherData.body.data.length;i++){
-  //       const locationweatherData = new Weatherlab6(city,weatherData.body,i);
-  //       allWeather.push(locationweatherData);
-  //     }
-  //     res.send(allWeather);
-  //   });
-
-  // Lab 7 (get data from API)
-  // second Method
-  getWeather(key,city)
-    .then(allWeatherArr => res.status(200).json(allWeatherArr));
-
-});
-
+// return array of weather objects for the city requested
 function getWeather(key,city){
   let url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&key=${key}`;
   return superagent.get(url)
     .then(weatherData =>{
-      // for(let i = 0 ; i<weatherData.body.data.length;i++){
-      //   const locationweatherData = new Weatherlab6(city,weatherData.body,i);
-      //   allWeather.push(locationweatherData);
-      // }
       let allWeather = weatherData.body.data.map(element => {
         return new Weather(city,element);
       })
@@ -109,18 +77,7 @@ function getWeather(key,city){
     });
 }
 
-
-server.get('/trails',(req,res) =>{
-  const lon = req.query.lon;
-  const lat = req.query.lat;
-  const key = process.env.TRAIL_API_KEY;
-
-  getTrails(key,lat,lon)
-    .then(allTrails => res.status(200).json(allTrails));
-
-
-});
-
+// return array of trails objects for the city requested
 function getTrails(key,lat,lon){
   // let url = `https://www.hikingproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=10&key=${key}`;
   let url = `https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${lon}&maxDistance=10&key=${key}`;
@@ -133,6 +90,7 @@ function getTrails(key,lat,lon){
     });
 }
 
+/**********************************************Constructor functions*********************************************** */
 function Trails(trailData) {
   this.name = trailData.name;
   this.location = trailData.location;
@@ -152,27 +110,16 @@ function Location(city,geoData) {
   this.longitude = geoData[0].lon;
 }
 
-// function Weatherlab6(city,weatherData,idx) {
-//   this.search_query = city;
-//   this.description = weatherData.data[idx].weather.description;
-//   this.time = weatherData.data[idx].valid_date;
-// }
-
 function Weather(city,weatherData) {
-  // this.search_query = city;
   this.forecast = weatherData.weather.description;
   this.time = weatherData.valid_date;
 }
 
-
+/**************************************************Errors handling************************************************** */
 // localhost:3000/
 server.get('/', (request, response) => {
   response.status(200).send('Welcome 301d4,it works');
 });
-
-// server.use('/',(req,res) =>{
-//   res.send('Welcome 301d4');
-// });
 
 // localhost:3000/anything
 server.use('*', (req, res) => {
