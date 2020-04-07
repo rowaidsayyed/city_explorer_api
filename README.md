@@ -121,3 +121,51 @@ Start time: *1:35 pm*
 Finish time: *2:40 min*
 
 Actual time needed to complete: *1 hour and 5 min*
+
+/******************************************************************************/
+
+Number and name of feature: *Feature 9:Database*
+
+Estimate of time needed to complete: *10 min*
+
+Start time: *2:10 pm*
+
+Finish time: *2:20 min*
+
+Actual time needed to complete: *10 min*
+
+/******************************************************************************/
+
+Number and name of feature: *Feature 10:Server*
+
+Estimate of time needed to complete: *20 min*
+
+Start time: *2:20 pm*
+
+Finish time: *2:45 min*
+
+Actual time needed to complete: *25 min*
+
+/******************************************************************************/
+
+Number and name of feature: *Feature 11:Deploy*
+
+Estimate of time needed to complete: *10 min*
+
+Start time: *4:30 pm*
+
+Finish time: *4:40 min*
+
+Actual time needed to complete: *10 min*
+
+/******************************************************************************/
+
+Number and name of feature: *STRETCH: Server*
+
+Estimate of time needed to complete: *40 min*
+
+Start time: *2:45 pm*
+
+Finish time: *3:35 min*
+
+Actual time needed to complete: *50 min*
