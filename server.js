@@ -61,6 +61,21 @@ server.get('/trails',(req,res) =>{
     .then(allTrails => res.status(200).json(allTrails));
 });
 
+
+// // http://localhost:3000/movies
+// server.get('/movies',(req,res) =>{
+
+//   const city = req.query.search_query;
+//   const key = process.env.WEATHER_API_KEY;
+
+//   // (get data from API)
+//   getWeather(key,city)
+//     .then(allWeatherArr => res.status(200).json(allWeatherArr));
+
+// });
+
+
+
 // Rout to display all data in the database
 // http://localhost:3000/cities
 server.get('/cities',(request,response)=>{
