@@ -15,21 +15,16 @@ const pg = require('pg');
 const server = express();
 server.use(cors());
 const client = new pg.Client(process.env.DATABASE_URL);
-
+client.connect();
 /**************************************************** Rout function ************************************************ */
 
 // http://localhost:3000/location
 function locationRout(req, res) {
-  console.log('hi i am location.js file and u?');
-
   const city = req.query.city;
   const key = process.env.LOCATION_API_KEY;
   // check if the data in the database or not and return it as json
-  let x = checkLocation(city, key)
-    // console.log(x);
+  checkLocation(city, key)
     .then((locationData) => {
-      console.log('zzzzzzzzzzzz',city, key);
-      console.log(locationData);
       res.status(200).json(locationData);
     }
     )
@@ -61,12 +56,12 @@ function Location(city, geoData) {
 
 // check if the data in the database or not and return it as json
 function checkLocation(city, key) {
-  console.log('tttttttt',city, key);
-  let SQL = `SELECT * FROM locations  where search_query='${city}' `;
-  return client.query(SQL)
+  let SQL = `SELECT * FROM locations where search_query= $1; `;
+  console.log(SQL);
+  let val = [city];
+  return client.query(SQL,val)
     .then(results => {
       if (results.rows.length) {
-        console.log('rrrrrrrrr');
         return results.rows[0];
       } else {
         // (get data from API)

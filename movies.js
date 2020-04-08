@@ -30,11 +30,12 @@ function moviesRout(req, res) {
 
 // return array of movies objects for the city requested
 function getMovies(key, city) {
-  let url = `https://api.themoviedb.org/3/discover/movie?api_key=${key}&region=JO&sort_by=vote_average`;
-  // let url = `https://api.themoviedb.org/3/search/company?api_key=${key}&query=amman`;
+  // let url = `https://api.themoviedb.org/3/discover/movie?api_key=${key}&region=JO&sort_by=vote_average`;
+  let url = `https://api.themoviedb.org/3/search/movie?api_key=${key}&query=${city}`;
+  // let url = `https://api.themoviedb.org/3/search/movie?api_key=${key}&query=${city}&region=JO`;
+
   return superagent.get(url)
     .then(moviesData => {
-      // console.log(moviesData.body.results);
       let allMovies = moviesData.body.results.map(element => {
         return new Movie(element);
       })
