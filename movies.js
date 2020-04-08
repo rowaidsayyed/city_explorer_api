@@ -20,7 +20,6 @@ server.use(cors());
 function moviesRout(req, res) {
   const city = req.query.search_query;
   const key = process.env.MOVIES_API_KEY;
-  // res.status(200).send('hiiiiis');
   // (get data from API)
   getMovies(key, city)
     .then(allMovies => res.status(200).json(allMovies));

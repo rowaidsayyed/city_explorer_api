@@ -57,7 +57,6 @@ function Location(city, geoData) {
 // check if the data in the database or not and return it as json
 function checkLocation(city, key) {
   let SQL = `SELECT * FROM locations where search_query= $1; `;
-  console.log(SQL);
   let val = [city];
   return client.query(SQL,val)
     .then(results => {
